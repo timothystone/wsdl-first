@@ -19,7 +19,7 @@
             <xsd:complexType name="order">
                 <xsd:sequence>
                     <xsd:element name="id" type="xsd:int"/>
-                    <xsd:element name="product" type="tns:product" maxOccurs="unbounded" />
+                    <xsd:element name="product" type="tns:product" maxOccurs="unbounded"/>
                 </xsd:sequence>
             </xsd:complexType>
 
@@ -38,13 +38,13 @@
             <xsd:complexType name="createOrdersRequest">
                 <xsd:sequence>
                     <xsd:element name="customerId" type="xsd:int"/>
-                    <xsd:element name="order" type="tns:order" />
+                    <xsd:element name="order" type="tns:order"/>
                 </xsd:sequence>
             </xsd:complexType>
 
             <xsd:complexType name="createOrdersResponse">
                 <xsd:sequence>
-                    <xsd:element name="response" type="xsd:boolean" />
+                    <xsd:element name="response" type="xsd:boolean"/>
                 </xsd:sequence>
             </xsd:complexType>
 
@@ -55,17 +55,26 @@
 
         </xsd:schema>
     </wsdl:types>
-    <wsdl:message name="NewOperationRequest">
-        <wsdl:part element="tns:NewOperation" name="parameters"/>
+    <wsdl:message name="getOrdersRequest">
+        <wsdl:part element="tns:getOrdersRequest" name="parameters"/>
     </wsdl:message>
-    <wsdl:message name="NewOperationResponse">
-        <wsdl:part element="tns:NewOperationResponse"
-                   name="parameters"/>
+    <wsdl:message name="getOrdersResponse">
+        <wsdl:part element="tns:getOrdersResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="createOrdersRequest">
+        <wsdl:part element="tns:createOrdersRequest" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="createOrdersResponse">
+        <wsdl:part element="tns:createOrdersResponse" name="parameters"/>
     </wsdl:message>
     <wsdl:portType name="CustomerOrders">
-        <wsdl:operation name="NewOperation">
-            <wsdl:input message="tns:NewOperationRequest"/>
-            <wsdl:output message="tns:NewOperationResponse"/>
+        <wsdl:operation name="getOrders">
+            <wsdl:input message="tns:getOrdersRequest"/>
+            <wsdl:output message="tns:getOrdersResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="createOrders">
+            <wsdl:input message="tns:createOrdersRequest"/>
+            <wsdl:output message="tns:createOrdersResponse"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="CustomerOrdersSOAP"
