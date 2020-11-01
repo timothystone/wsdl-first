@@ -35,6 +35,19 @@
                 </xsd:sequence>
             </xsd:complexType>
 
+            <xsd:complexType name="createOrdersRequest">
+                <xsd:sequence>
+                    <xsd:element name="customerId" type="xsd:int"/>
+                    <xsd:element name="order" type="tns:order" />
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="createOrdersResponse">
+                <xsd:sequence>
+                    <xsd:element name="response" type="xsd:boolean" />
+                </xsd:sequence>
+            </xsd:complexType>
+
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="NewOperationRequest">
