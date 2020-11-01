@@ -48,6 +48,11 @@
                 </xsd:sequence>
             </xsd:complexType>
 
+            <xsd:element name="getOrdersRequest" type="tns:getOrdersRequest"/>
+            <xsd:element name="getOrdersResponse" type="tns:getOrdersResponse"/>
+            <xsd:element name="createOrdersRequest" type="tns:createOrdersRequest"/>
+            <xsd:element name="createOrdersResponse" type="tns:createOrdersResponse"/>
+
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="NewOperationRequest">
