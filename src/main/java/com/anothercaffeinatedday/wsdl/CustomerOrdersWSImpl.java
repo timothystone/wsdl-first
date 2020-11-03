@@ -57,7 +57,7 @@ public class CustomerOrdersWSImpl implements CustomerOrdersPortType {
         product.setDescription("iPhone 12");
         product.setQuantity(3);
 
-        order.getProduct().add(product);
+        order.getProducts().add(product);
 
         customerOrders.put(++currentId, orders);
 
@@ -70,7 +70,7 @@ public class CustomerOrdersWSImpl implements CustomerOrdersPortType {
         List<Order> orders = customerOrders.get(customerId);
 
         GetOrdersResponse response = new GetOrdersResponse();
-        response.getOrder().addAll(orders);
+        response.getOrders().addAll(orders);
         return response;
     }
 
