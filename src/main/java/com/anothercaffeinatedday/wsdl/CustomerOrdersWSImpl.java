@@ -78,6 +78,7 @@ public class CustomerOrdersWSImpl implements CustomerOrdersPortType {
     public CreateOrdersResponse createOrders(CreateOrdersRequest request) {
         int customerId = request.getCustomerId();
         Order order = request.getOrder();
+        order.setId(++currentId);
 
         List<Order> orders  = customerOrders.get(customerId);
         orders.add(order);
