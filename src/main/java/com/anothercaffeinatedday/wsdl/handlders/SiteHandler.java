@@ -29,6 +29,11 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
+/**
+ * Handle the SOAP Message from the requesting site.
+ *
+ * A client may pass site information to the service. Handle the sites requests uniquely.
+ */
 public class SiteHandler implements SOAPHandler<SOAPMessageContext> {
   @Override
   public Set<QName> getHeaders() {
