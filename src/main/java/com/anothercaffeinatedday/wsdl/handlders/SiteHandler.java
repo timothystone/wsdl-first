@@ -48,11 +48,13 @@ public class SiteHandler implements SOAPHandler<SOAPMessageContext> {
 
   @Override
   public Set<QName> getHeaders() {
+    LOGGER.info("In getHeaders");
     return null;
   }
 
   @Override
   public boolean handleMessage(SOAPMessageContext soapMessageContext) {
+    LOGGER.info("In handleMessage");
     Boolean isResponse = (Boolean) soapMessageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
     if (!isResponse) {
       SOAPMessage message = soapMessageContext.getMessage();
@@ -60,22 +62,31 @@ public class SiteHandler implements SOAPHandler<SOAPMessageContext> {
         SOAPEnvelope envelope = message.getSOAPPart().getEnvelope();
         SOAPHeader header = envelope.getHeader();
         Iterator<Node> childElements = header.getChildElements();
+        while (childElements.hasNext()) {
+          Node node = (Node) childElements.next();
+          String name = node.getLocalName();
+          if ("SiteName".equals(name)) {
+            LOGGER.debug("Site Name is {}", node.getValue());
+          }
+
+        }
       } catch (SOAPException e) {
         LOGGER.error(e.getMessage());
       }
     } else {
       LOGGER.debug("Response on the way.");
     }
-    return false;
+    return true;
   }
 
   @Override
   public boolean handleFault(SOAPMessageContext soapMessageContext) {
+    LOGGER.info("In handleFault");
     return false;
   }
 
   @Override
   public void close(MessageContext messageContext) {
-
+    LOGGER.info("In close");
   }
 }
