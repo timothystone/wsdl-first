@@ -23,18 +23,29 @@
 
 package com.anothercaffeinatedday.wsdl.handlders;
 
+import java.util.Iterator;
 import java.util.Set;
 import javax.xml.namespace.QName;
+import javax.xml.soap.Node;
+import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPHeader;
+import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handle the SOAP Message from the requesting site.
  *
- * A client may pass site information to the service. Handle the sites requests uniquely.
+ * <p>A client may pass site information to the service. Handle the sites requests uniquely.
  */
 public class SiteHandler implements SOAPHandler<SOAPMessageContext> {
+
+  public static final Logger LOGGER = LoggerFactory.getLogger(SiteHandler.class);
+
   @Override
   public Set<QName> getHeaders() {
     return null;
@@ -42,6 +53,19 @@ public class SiteHandler implements SOAPHandler<SOAPMessageContext> {
 
   @Override
   public boolean handleMessage(SOAPMessageContext soapMessageContext) {
+    Boolean isResponse = (Boolean) soapMessageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+    if (!isResponse) {
+      SOAPMessage message = soapMessageContext.getMessage();
+      try {
+        SOAPEnvelope envelope = message.getSOAPPart().getEnvelope();
+        SOAPHeader header = envelope.getHeader();
+        Iterator<Node> childElements = header.getChildElements();
+      } catch (SOAPException e) {
+        LOGGER.error(e.getMessage());
+      }
+    } else {
+      LOGGER.debug("Response on the way.");
+    }
     return false;
   }
 

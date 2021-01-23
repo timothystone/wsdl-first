@@ -30,62 +30,61 @@ import com.anothercaffeinatedday.GetOrdersRequest;
 import com.anothercaffeinatedday.GetOrdersResponse;
 import com.anothercaffeinatedday.Order;
 import com.anothercaffeinatedday.Product;
-import org.apache.cxf.feature.Features;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.cxf.feature.Features;
 
 @Features(features = "org.apache.cxf.ext.logging.LoggingFeature")
 public class CustomerOrdersWSImpl implements CustomerOrdersPortType {
 
-    Map<Integer, List<Order>> customerOrders = new HashMap<>();
-    int currentId;
+  Map<Integer, List<Order>> customerOrders = new HashMap<>();
+  int currentId;
 
-    public CustomerOrdersWSImpl() {
-        init();
-    }
+  public CustomerOrdersWSImpl() {
+    init();
+  }
 
-    public void init() {
-        List<Order> orders = new ArrayList<>();
-        Order order = new Order();
-        order.setId(1);
+  public void init() {
+    final List<Order> orders = new ArrayList<>();
+    Order order = new Order();
+    order.setId(1);
 
-        Product product = new Product();
-        product.setId("1");
-        product.setDescription("iPhone 12");
-        product.setQuantity(3);
+    Product product = new Product();
+    product.setId("1");
+    product.setDescription("iPhone 12");
+    product.setQuantity(3);
 
-        order.getProducts().add(product);
+    order.getProducts().add(product);
 
-        customerOrders.put(++currentId, orders);
+    customerOrders.put(++currentId, orders);
 
-        orders.add(order);
-    }
+    orders.add(order);
+  }
 
-    @Override
-    public GetOrdersResponse getOrders(GetOrdersRequest request) {
-        Integer customerId = request.getCustomerId();
-        List<Order> orders = customerOrders.get(customerId);
+  @Override
+  public GetOrdersResponse getOrders(GetOrdersRequest request) {
+    Integer customerId = request.getCustomerId();
+    List<Order> orders = customerOrders.get(customerId);
 
-        GetOrdersResponse response = new GetOrdersResponse();
-        response.getOrders().addAll(orders);
-        return response;
-    }
+    GetOrdersResponse response = new GetOrdersResponse();
+    response.getOrders().addAll(orders);
+    return response;
+  }
 
-    @Override
-    public CreateOrdersResponse createOrders(CreateOrdersRequest request) {
-        int customerId = request.getCustomerId();
-        Order order = request.getOrder();
-        order.setId(++currentId);
+  @Override
+  public CreateOrdersResponse createOrders(CreateOrdersRequest request) {
+    int customerId = request.getCustomerId();
+    Order order = request.getOrder();
+    order.setId(++currentId);
 
-        List<Order> orders  = customerOrders.get(customerId);
-        orders.add(order);
+    List<Order> orders = customerOrders.get(customerId);
+    orders.add(order);
 
-        CreateOrdersResponse createOrdersResponse = new CreateOrdersResponse();
-        createOrdersResponse.setResponse(true);
+    CreateOrdersResponse createOrdersResponse = new CreateOrdersResponse();
+    createOrdersResponse.setResponse(true);
 
-        return createOrdersResponse;
-    }
+    return createOrdersResponse;
+  }
 }
