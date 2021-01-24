@@ -24,23 +24,45 @@
 package com.anothercaffeinatedday.wsdl.config;
 
 import com.anothercaffeinatedday.wsdl.CustomerOrdersWSImpl;
+import com.anothercaffeinatedday.wsdl.handlders.SiteHandler;
+import java.util.ArrayList;
 import javax.xml.ws.Endpoint;
+import javax.xml.ws.handler.Handler;
+import javax.xml.ws.soap.SOAPBinding;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * The Configuration of the Web Service.
+ *
+ * <p>The endpoint of the WSDL First WS is presented. Additionally, the use of a JAX-WS Handler is presented.</p>
+ */
 @Configuration
 public class WebServiceConfig {
 
   @Autowired
   private Bus bus;
 
+  /**
+   * The Web Service endpoint URL.
+   *
+   * <p>The CustomerOrders service endpoint.</p>
+   *
+   * @return Endpoint the customerwebservice endpoint with a site handler
+   */
   @Bean
   public Endpoint endpoint() {
     Endpoint endpoint = new EndpointImpl(bus, new CustomerOrdersWSImpl());
     endpoint.publish("/customerordersservice");
+
+    SOAPBinding binding = (SOAPBinding) endpoint.getBinding();
+    ArrayList<Handler> handlers = new ArrayList<>();
+    handlers.add(new SiteHandler());
+    binding.setHandlerChain(handlers);
+
     return endpoint;
   }
 }
