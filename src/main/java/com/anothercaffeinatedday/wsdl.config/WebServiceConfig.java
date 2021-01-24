@@ -24,7 +24,7 @@
 package com.anothercaffeinatedday.wsdl.config;
 
 import com.anothercaffeinatedday.wsdl.CustomerOrdersWSImpl;
-import com.anothercaffeinatedday.wsdl.handlders.SiteHandler;
+import com.anothercaffeinatedday.wsdl.handlers.SiteHandler;
 import java.util.ArrayList;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.handler.Handler;

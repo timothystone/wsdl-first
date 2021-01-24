@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.anothercaffeinatedday.wsdl.handlders;
+package com.anothercaffeinatedday.wsdl.handlers;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -63,10 +63,10 @@ public class SiteHandler implements SOAPHandler<SOAPMessageContext> {
         SOAPHeader header = envelope.getHeader();
         Iterator<Node> childElements = header.getChildElements();
         while (childElements.hasNext()) {
-          Node node = (Node) childElements.next();
+          Node node = childElements.next();
           String name = node.getLocalName();
           if ("SiteName".equals(name)) {
-            LOGGER.debug("Site Name is {}", node.getValue());
+            LOGGER.info("Site Name is {}", node.getValue());
           }
 
         }
@@ -74,7 +74,7 @@ public class SiteHandler implements SOAPHandler<SOAPMessageContext> {
         LOGGER.error(e.getMessage());
       }
     } else {
-      LOGGER.debug("Response on the way.");
+      LOGGER.info("Response on the way.");
     }
     return true;
   }
